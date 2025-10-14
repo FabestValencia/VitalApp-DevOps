@@ -52,7 +52,7 @@ jobs:
       - name: Crear tablas y datos de ejemplo
         run: |
           sudo apt-get install -y postgresql-client
-          psql -h localhost -U postgres -d vitalapp -f database_setup.sql
+          psql -h localhost -U postgres -d vitalapp -f $GITHUB_WORKSPACE/database_setup.sql
         env:
           PGPASSWORD: 2304
       - name: Ejecutar pruebas backend
