@@ -1,19 +1,26 @@
-# Backend Dockerfile
+# Backend Dockerfile - Producción
+
+# Base image ligera de Node 18
 FROM node:18-alpine
 
+# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copy package files
+# Copiar solo package.json y package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Instalar dependencias de manera reproducible
+RUN npm ci --only=production
 
-# Copy application files
+# Copiar resto de la aplicación
 COPY . .
 
-# Expose port
+# Crear carpeta para logs
+RUN mkdir -p /app/logs
+
+# Exponer puerto (el que tu app use en producción)
 EXPOSE 443
 
-# Start the application
-CMD ["npm", "run", "dev"]
+# Ejecutar la app y redirigir stdout/stderr a un archivo de log
+# Esto mantiene logs persistentes dentro del contenedor
+CMD ["sh", "-c", "npm run start > logs/app.log 2>&1"]
