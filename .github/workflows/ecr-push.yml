@@ -46,3 +46,5 @@ jobs:
       - name: Push frontend image to ECR
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_FRONTEND }}:latest
+
+          
