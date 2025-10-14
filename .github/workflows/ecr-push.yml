@@ -1,0 +1,48 @@
+name: Build and Push Docker Images to AWS ECR
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push-ecr:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build backend Docker image
+        run: |
+          docker build -t ${{ secrets.ECR_REPO_BACKEND }}:latest ./backend
+
+      - name: Build frontend Docker image
+        run: |
+          docker build -t ${{ secrets.ECR_REPO_FRONTEND }}:latest ./frontend
+
+      - name: Tag backend image for ECR
+        run: |
+          docker tag ${{ secrets.ECR_REPO_BACKEND }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_BACKEND }}:latest
+
+      - name: Tag frontend image for ECR
+        run: |
+          docker tag ${{ secrets.ECR_REPO_FRONTEND }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_FRONTEND }}:latest
+
+      - name: Push backend image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_BACKEND }}:latest
+
+      - name: Push frontend image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_FRONTEND }}:latest
