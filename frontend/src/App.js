@@ -33,7 +33,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div className="text-3xl mr-3">⚕️</div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
                 VitalApp
               </h1>
             </div>

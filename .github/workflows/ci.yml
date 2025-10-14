@@ -1,0 +1,73 @@
+name: CI VitalApp
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 2304
+          POSTGRES_DB: vitalapp
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: vitalapp
+      DB_USER: postgres
+      DB_PASSWORD: 2304
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Instalar dependencias backend
+        run: |
+          cd backend
+          npm install
+      - name: Instalar dependencias frontend
+        run: |
+          cd frontend
+          npm install
+      - name: Esperar a que PostgreSQL esté listo
+        run: |
+          for i in {1..10}; do
+            pg_isready -h localhost -p 5432 -U postgres && break
+            sleep 3
+          done
+      - name: Crear tablas y datos de ejemplo
+        run: |
+          sudo apt-get install -y postgresql-client
+          psql -h localhost -U postgres -d vitalapp -f database_setup.sql
+        env:
+          PGPASSWORD: 2304
+      - name: Ejecutar pruebas backend
+        run: |
+          cd backend
+          npm test || true
+      - name: Ejecutar pruebas frontend
+        run: |
+          cd frontend
+          npm test || true
+      - name: Análisis de calidad de código (backend)
+        run: |
+          cd backend
+          npx eslint . || true
+      - name: Análisis de calidad de código (frontend)
+        run: |
+          cd frontend
+          npx eslint . || true

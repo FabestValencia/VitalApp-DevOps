@@ -9,18 +9,16 @@ const Appointments = () => {
   const [showForm, setShowForm] = useState(false);
   
   // Lista de doctores disponibles
-  const DOCTORS = [
+  const doctors = [
     'Dra. María García',
     'Dr. Carlos Ruiz',
-    'Dra. Laura Sánchez',
-    'Dr. Juan Fernández',
-    'Dra. Ana Torres'
+    'Dra. Laura Sánchez'
   ];
 
   // Form state
   const [formData, setFormData] = useState({
     patient_name: '',
-    doctor_name: DOCTORS[0],
+    doctor_name: '',
     date: '',
     time: '',
     reason: ''
@@ -164,7 +162,8 @@ const Appointments = () => {
                   required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  {DOCTORS.map((doctor) => (
+                  <option value="" disabled>Selecciona un doctor</option>
+                  {doctors.map((doctor) => (
                     <option key={doctor} value={doctor}>{doctor}</option>
                   ))}
                 </select>
