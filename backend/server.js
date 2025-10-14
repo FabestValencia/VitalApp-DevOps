@@ -7,7 +7,7 @@ const { initializeDatabase } = require('./initDB');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443;
 
 // Middleware
 app.use(cors({ origin: '*' })); // Permitir CORS desde cualquier origen

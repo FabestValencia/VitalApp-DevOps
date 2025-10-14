@@ -32,7 +32,7 @@
                              │ JSON
 ┌────────────────────────────▼───────────────────────────────────┐
 │               BACKEND (Node.js + Express)                       │
-│                http://localhost:5000                            │
+│                http://localhost:443                            │
 │                                                                 │
 │  ┌─────────────────────────────────────────────────┐          │
 │  │              REST API Endpoints                  │          │
@@ -97,7 +97,7 @@ Appointments.js
     ▼
 api.js (axios)
     │
-    │ 3. POST http://localhost:5000/appointments
+    │ 3. POST http://localhost:443/appointments
     │    Body: { patient_name, doctor_name, date, time, reason }
     ▼
 server.js (Express)
@@ -136,7 +136,7 @@ Results.js (useEffect)
     ▼
 api.js
     │
-    │ 2. GET http://localhost:5000/results
+    │ 2. GET http://localhost:443/results
     ▼
 server.js
     │
@@ -170,7 +170,7 @@ Appointments.js
     ▼
 api.js
     │
-    │ 3. DELETE http://localhost:5000/appointments/:id
+    │ 3. DELETE http://localhost:443/appointments/:id
     ▼
 server.js
     │
@@ -271,7 +271,7 @@ cd frontend && npm run build
 
 ## 🔄 Estado del Sistema
 
-- **Backend**: Puerto 5000
+- **Backend**: Puerto 443
 - **Frontend**: Puerto 3000
 - **Database**: Puerto 5432
 - **Inicialización**: Automática con datos de ejemplo
