@@ -18,7 +18,35 @@ VitalApp es una aplicación web completa para la gestión de citas médicas, res
 
 ## 🛠️ Instalación
 
-### 1. Configurar la Base de Datos PostgreSQL
+### Opción 1: Instalación Rápida con Script
+
+```bash
+# Ejecutar el script de configuración
+./setup.sh
+```
+
+Este script instalará todas las dependencias automáticamente.
+
+### Opción 2: Instalación con Docker (Recomendado)
+
+Si tienes Docker y Docker Compose instalados:
+
+```bash
+# Iniciar todos los servicios (PostgreSQL, Backend, Frontend)
+docker-compose up
+
+# Para ejecutar en segundo plano
+docker-compose up -d
+```
+
+¡Listo! La aplicación estará disponible en:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
+- PostgreSQL: localhost:5432
+
+### Opción 3: Instalación Manual
+
+#### 1. Configurar la Base de Datos PostgreSQL
 
 ```bash
 # Acceder a PostgreSQL
@@ -31,7 +59,13 @@ CREATE DATABASE vitalapp;
 \q
 ```
 
-### 2. Configurar el Backend
+Opcionalmente, puedes ejecutar el script SQL proporcionado:
+
+```bash
+psql -U postgres -d vitalapp -f database_setup.sql
+```
+
+#### 2. Configurar el Backend
 
 ```bash
 # Navegar al directorio backend
@@ -51,7 +85,7 @@ cp .env.example .env
 # DB_PASSWORD=tu_contraseña
 ```
 
-### 3. Configurar el Frontend
+#### 3. Configurar el Frontend
 
 ```bash
 # Navegar al directorio frontend
