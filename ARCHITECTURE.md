@@ -282,11 +282,7 @@ cd frontend && npm run build
 - **Total Endpoints**: 10
 - **Total Componentes**: 3 principales
 - **Total Tablas**: 3
-- **Líneas de Código**: ~1,300
+- **Líneas de Código JavaScript**: ~1,300 (backend y frontend)
 - **Tiempo de Inicio**: < 30 segundos
-- **Dependencias Backend**: 5
-- **Dependencias Frontend**: 4
-
----
-
-*Última actualización: 2024-01-14*
+- **Dependencias Backend**: 4 producción + 1 desarrollo
+- **Dependencias Frontend**: 4 producción + 3 desarrollo
