@@ -8,10 +8,19 @@ const Appointments = () => {
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(false);
   
+  // Lista de doctores disponibles
+  const DOCTORS = [
+    'Dra. María García',
+    'Dr. Carlos Ruiz',
+    'Dra. Laura Sánchez',
+    'Dr. Juan Fernández',
+    'Dra. Ana Torres'
+  ];
+
   // Form state
   const [formData, setFormData] = useState({
     patient_name: '',
-    doctor_name: '',
+    doctor_name: DOCTORS[0],
     date: '',
     time: '',
     reason: ''
@@ -148,15 +157,17 @@ const Appointments = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Nombre del Doctor *
                 </label>
-                <input
-                  type="text"
+                <select
                   name="doctor_name"
                   value={formData.doctor_name}
                   onChange={handleInputChange}
                   required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Dr. María García"
-                />
+                >
+                  {DOCTORS.map((doctor) => (
+                    <option key={doctor} value={doctor}>{doctor}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">

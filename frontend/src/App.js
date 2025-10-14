@@ -33,7 +33,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div className="text-3xl mr-3">⚕️</div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
                 VitalApp
               </h1>
             </div>
@@ -87,14 +87,6 @@ function App() {
         {renderContent()}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-gray-600 text-sm">
-            © 2024 VitalApp - Sistema de Gestión de Citas Médicas
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
