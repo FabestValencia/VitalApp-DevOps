@@ -19,7 +19,7 @@ COPY . .
 RUN mkdir -p /app/logs
 
 # Exponer puerto (el que tu app use en producción)
-EXPOSE 443
+EXPOSE 5000
 
 # Ejecutar la app y redirigir stdout/stderr a un archivo de log
 # Esto mantiene logs persistentes dentro del contenedor

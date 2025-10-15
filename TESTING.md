@@ -6,7 +6,7 @@ Esta guía te ayudará a probar todas las funcionalidades de VitalApp.
 
 Asegúrate de que tanto el backend como el frontend estén ejecutándose:
 
-1. **Backend**: `cd backend && npm run dev` (puerto 443)
+1. **Backend**: `cd backend && npm run dev` (puerto 5000)
 2. **Frontend**: `cd frontend && npm start` (puerto 3000)
 3. **PostgreSQL**: Base de datos ejecutándose y conectada
 
@@ -16,7 +16,7 @@ Asegúrate de que tanto el backend como el frontend estén ejecutándose:
 
 ```bash
 # Verificar que el servidor está activo
-curl http://localhost:443/
+curl http://localhost:5000/
 
 # Respuesta esperada:
 # {"message":"VitalApp API is running","version":"1.0.0", ...}
@@ -26,12 +26,12 @@ curl http://localhost:443/
 
 #### Obtener todas las citas
 ```bash
-curl http://localhost:443/appointments
+curl http://localhost:5000/appointments
 ```
 
 #### Crear una nueva cita
 ```bash
-curl -X POST http://localhost:443/appointments \
+curl -X POST http://localhost:5000/appointments \
   -H "Content-Type: application/json" \
   -d '{
     "patient_name": "Test Patient",
@@ -44,19 +44,19 @@ curl -X POST http://localhost:443/appointments \
 
 #### Eliminar una cita
 ```bash
-curl -X DELETE http://localhost:443/appointments/1
+curl -X DELETE http://localhost:5000/appointments/1
 ```
 
 ### 3. Probar Endpoints de Resultados
 
 #### Obtener todos los resultados
 ```bash
-curl http://localhost:443/results
+curl http://localhost:5000/results
 ```
 
 #### Crear un nuevo resultado
 ```bash
-curl -X POST http://localhost:443/results \
+curl -X POST http://localhost:5000/results \
   -H "Content-Type: application/json" \
   -d '{
     "patient_name": "Test Patient",
@@ -71,12 +71,12 @@ curl -X POST http://localhost:443/results \
 
 #### Obtener todas las notificaciones
 ```bash
-curl http://localhost:443/notifications
+curl http://localhost:5000/notifications
 ```
 
 #### Crear una nueva notificación
 ```bash
-curl -X POST http://localhost:443/notifications \
+curl -X POST http://localhost:5000/notifications \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Test Notification",
@@ -87,12 +87,12 @@ curl -X POST http://localhost:443/notifications \
 
 #### Marcar notificación como leída
 ```bash
-curl -X PATCH http://localhost:443/notifications/1
+curl -X PATCH http://localhost:5000/notifications/1
 ```
 
 #### Eliminar una notificación
 ```bash
-curl -X DELETE http://localhost:443/notifications/1
+curl -X DELETE http://localhost:5000/notifications/1
 ```
 
 ## Pruebas del Frontend
@@ -193,7 +193,7 @@ SELECT * FROM notifications;
 
 ## Checklist de Pruebas Completo
 
-- [ ] Backend responde en puerto 443
+- [ ] Backend responde en puerto 5000
 - [ ] Frontend carga en puerto 3000
 - [ ] GET /appointments funciona
 - [ ] POST /appointments crea una cita
@@ -225,7 +225,7 @@ SELECT * FROM notifications;
 
 ### El Frontend no puede comunicarse con el Backend
 
-1. Verifica que el backend esté ejecutándose en puerto 443
+1. Verifica que el backend esté ejecutándose en puerto 5000
 2. Revisa `frontend/.env` o la configuración en `src/api.js`
 3. Verifica la consola del navegador para errores CORS
 

@@ -41,7 +41,7 @@ docker-compose up -d
 
 ¡Listo! La aplicación estará disponible en:
 - Frontend: http://localhost:3000
-- Backend: http://localhost:443
+- Backend: http://localhost:5000
 - PostgreSQL: localhost:5432
 
 ### Opción 3: Instalación Manual
@@ -107,7 +107,7 @@ cd backend
 npm run dev
 ```
 
-El servidor backend estará disponible en `http://localhost:443`
+El servidor backend estará disponible en `http://localhost:5000`
 
 ### Iniciar el Frontend
 

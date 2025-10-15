@@ -14,7 +14,7 @@ docker-compose up
 
 # 3. Abrir en el navegador
 # Frontend: http://localhost:3000
-# Backend: http://localhost:443
+# Backend: http://localhost:5000
 ```
 
 ### Opción 2: Sin Docker
@@ -106,7 +106,7 @@ npm start
 - Revisa `backend/.env` con tus credenciales
 
 ### El frontend no se conecta
-- Asegúrate de que el backend esté en puerto 443
+- Asegúrate de que el backend esté en puerto 5000
 - Verifica la configuración en `frontend/.env`
 
 ### Sin datos en la aplicación

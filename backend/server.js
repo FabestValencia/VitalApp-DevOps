@@ -4,10 +4,13 @@ const express = require('express');
 const cors = require('cors');
 const pool = require('./db');
 const { initializeDatabase } = require('./initDB');
+const fs = require('fs');
+const https = require('https');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({ origin: '*' })); // Permitir CORS desde cualquier origen
@@ -326,13 +329,31 @@ app.get('/', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 VitalApp Backend Server running on http://0.0.0.0:${PORT}`);
-  console.log(`📊 Endpoints available:`);
-  console.log(`   - GET/POST/DELETE /appointments`);
-  console.log(`   - GET/POST /results`);
-  console.log(`   - GET/POST/PATCH/DELETE /notifications`);
-});
+// Start server (HTTPS si hay certificados, si no HTTP)
+const sslKeyPath = path.join(__dirname, 'ssl', 'server.key');
+const sslCertPath = path.join(__dirname, 'ssl', 'server.crt');
+
+if (fs.existsSync(sslKeyPath) && fs.existsSync(sslCertPath)) {
+  const options = {
+    key: fs.readFileSync(sslKeyPath),
+    cert: fs.readFileSync(sslCertPath)
+  };
+  https.createServer(options, app).listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 VitalApp Backend Server running with HTTPS on port ${PORT}`);
+    console.log(`📊 Endpoints available:`);
+    console.log(`   - GET/POST/DELETE /appointments`);
+    console.log(`   - GET/POST /results`);
+    console.log(`   - GET/POST/PATCH/DELETE /notifications`);
+  });
+} else {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 VitalApp Backend Server running on http://0.0.0.0:${PORT}`);
+    console.log(`📊 Endpoints available:`);
+    console.log(`   - GET/POST/DELETE /appointments`);
+    console.log(`   - GET/POST /results`);
+    console.log(`   - GET/POST/PATCH/DELETE /notifications`);
+    console.log('⚠️  Certificados SSL no encontrados, corriendo en HTTP');
+  });
+}
 
 module.exports = app;
